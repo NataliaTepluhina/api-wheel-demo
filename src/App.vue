@@ -1,15 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <input type="text" v-model="query" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+//
+import { ref } from 'vue'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  setup() {
+    const query = ref('')
+    const result = ref(null)
+    const loading = ref(false)
+    const error = ref(null)
+
+    function callAPI() {}
+
+    return { query, result, loading, error, callAPI }
   }
 }
 </script>
