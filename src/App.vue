@@ -14,29 +14,16 @@
 
 <script>
 import axios from './middlware'
-import { ref } from 'vue'
+import useApi from './composables/useApi'
 export default {
   name: 'App',
   setup() {
-    const query = ref('')
-    const result = ref(null)
-    const loading = ref(false)
-    const error = ref(false)
-
-    async function callAPI() {
-      loading.value = true
-      error.value = false
-      try {
-        const response = await axios.get(
-          `https://api.thecatapi.com/v1/images/search?breed_ids=${query.value}`
-        )
-        result.value = response.data[0].url
-      } catch {
-        error.value = true
-      } finally {
-        loading.value = false
-      }
-    }
+    const { query, loading, result, error, callAPI } = useApi(async query => {
+      const res = await axios.get(
+        `https://api.thecatapi.com/v1/images/search?breed_ids=${query}`
+      )
+      return res.data[0].url
+    })
 
     return { query, result, loading, error, callAPI }
   }
