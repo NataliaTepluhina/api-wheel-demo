@@ -6,6 +6,9 @@
     <input type="text" v-model="query" />
     <button @click="callAPI">Search</button>
     <p v-if="loading">Loading...</p>
+    <div v-if="result">
+      <img :src="result" alt="A random image" />
+    </div>
   </div>
 </template>
 
@@ -27,7 +30,7 @@ export default {
         const response = await axios.get(
           `https://api.thecatapi.com/v1/images/search?breed_ids=${query.value}`
         )
-        result.value = response
+        result.value = response.data[0].url
       } catch {
         error.value = true
       } finally {
@@ -52,5 +55,10 @@ export default {
 
 .error {
   color: red;
+}
+
+img {
+  margin-top: 20px;
+  max-width: 400px;
 }
 </style>
