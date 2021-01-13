@@ -1,8 +1,11 @@
 <template>
   <div>
+    <h3 class="error" v-if="error">
+      Oops, something went wrong! Please try one more time
+    </h3>
     <input type="text" v-model="query" />
     <button @click="callAPI">Search</button>
-    <span v-if="loading">Loading...</span>
+    <p v-if="loading">Loading...</p>
   </div>
 </template>
 
@@ -15,15 +18,21 @@ export default {
     const query = ref('')
     const result = ref(null)
     const loading = ref(false)
-    const error = ref(null)
+    const error = ref(false)
 
     async function callAPI() {
       loading.value = true
-      const response = await axios.get(
-        `https://api.thecatapi.com/v1/images/search?breed_ids=${query.value}`
-      )
-      loading.value = false
-      console.log(response)
+      error.value = false
+      try {
+        const response = await axios.get(
+          `https://api.thecatapi.com/v1/images/search?breed_ids=${query.value}`
+        )
+        result.value = response
+      } catch {
+        error.value = true
+      } finally {
+        loading.value = false
+      }
     }
 
     return { query, result, loading, error, callAPI }
@@ -39,5 +48,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.error {
+  color: red;
 }
 </style>
