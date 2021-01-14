@@ -18,11 +18,20 @@ import useApi from './composables/useApi'
 export default {
   name: 'App',
   setup() {
+    // CatAPI
+    // const { query, loading, result, error, callAPI } = useApi(async query => {
+    //   const res = await axios.get(
+    //     `https://api.thecatapi.com/v1/images/search?breed_ids=${query}`
+    //   )
+    //   return res.data[0].url
+    // })
+
+    // DogAPI
     const { query, loading, result, error, callAPI } = useApi(async query => {
       const res = await axios.get(
-        `https://api.thecatapi.com/v1/images/search?breed_ids=${query}`
+        `https://dog.ceo/api/breed/${query}/images/random`
       )
-      return res.data[0].url
+      return res.data.message
     })
 
     return { query, result, loading, error, callAPI }
