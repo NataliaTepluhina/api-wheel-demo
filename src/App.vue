@@ -1,52 +1,43 @@
 <template>
   <div>
-    <h3 class="error" v-if="error">
-      Oops, something went wrong! Please try one more time
-    </h3>
-    <input type="text" v-model="query" />
-    <button @click="callAPI">Search</button>
-    <p v-if="loading">Loading...</p>
-    <div v-if="result">
-      <img :src="result" alt="A random image" />
-    </div>
+    <input type="text" />
+    <button>Search</button>
   </div>
 </template>
 
 <script>
-import axios from './middlware'
-import useApi from './composables/useApi'
+// import axios from './middlware'
 export default {
   name: 'App',
-  setup() {
-    // CatAPI
-    // const { query, loading, result, error, callAPI } = useApi(async query => {
-    //   const res = await axios.get(
-    //     `https://api.thecatapi.com/v1/images/search?breed_ids=${query}`
-    //   )
-    //   return res.data[0].url
-    // })
-
-    // DogAPI
-    const { query, loading, result, error, callAPI } = useApi(async query => {
-      const res = await axios.get(
-        `https://dog.ceo/api/breed/${query}/images/random`
-      )
-      return res.data.message
-    })
-
-    return { query, result, loading, error, callAPI }
-  }
+  setup() {}
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+body {
+  font-family: 'Dank Mono', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 22px;
+}
+
+input {
+  margin-right: 20px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: rgb(154, 238, 234);
+}
+
+button:hover {
+  background-color: rgb(99, 241, 234);
 }
 
 .error {
