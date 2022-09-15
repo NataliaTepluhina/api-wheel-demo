@@ -1,7 +1,9 @@
 <template>
   <div>
-    <input type="text" />
-    <button>Search</button>
+    <form @submit.prevent>
+      <input type="text" />
+      <button type="submit">Search</button>
+    </form>
   </div>
 </template>
 
