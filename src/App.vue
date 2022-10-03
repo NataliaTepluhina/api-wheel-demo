@@ -1,17 +1,32 @@
 <template>
   <div>
+    <h3 class="error" v-if="error">
+      Oops, something went wrong! Please try one more time
+    </h3>
     <form @submit.prevent>
-      <input type="text" />
+      <input v-model="searchTerm" type="text" />
       <button type="submit">Search</button>
     </form>
+    <p v-if="loading">Loading...</p>
+    <div v-if="result">
+      <img :src="result" alt="A random image" />
+    </div>
   </div>
 </template>
 
 <script>
-// import axios from './middlware'
+import { ref } from 'vue'
+
 export default {
   name: 'App',
-  setup() {}
+  setup() {
+    const loading = ref(false)
+    const error = ref(false)
+    const result = ref('')
+    const searchTerm = ref('')
+
+    return { loading, error, result, searchTerm }
+  }
 }
 </script>
 
